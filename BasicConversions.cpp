@@ -18,7 +18,8 @@ int atoi(char *str)
 
 	for (; str[i] != '\0'; ++i)
 	{
-		result = result * 10 + (str[i] - '0');
+		if (str[i] >= '0' && str[i] <= '9')
+			result = result * 10 + (str[i] - '0');
 	}
 
 	result *= sign;
@@ -27,18 +28,20 @@ int atoi(char *str)
 
 int ptr_atoi(char *str)
 {
+	char* tmp = str;
 	int result = 0;
 	int sign = 1;
 
-	if (*str == '-')
+	if (*tmp == '-')
 	{
 		sign = -1;
-		++str;
+		++tmp;
 	}
 
-	for (; *str != '\0'; ++str)
+	for (; *tmp != '\0'; ++tmp)
 	{
-		result = result * 10 + (*str - '0');
+		if (*tmp >= '0' && *tmp <= '9')
+			result = result * 10 + (*tmp - '0');
 	}
 
 	result *= sign;
@@ -62,7 +65,7 @@ double atof(char *str)
 	{
 		if (str[i] == '.')
 			pointPosition = i; 
-		else
+		else if(str[i] >= '0' && str[i] <= '9')
 			result = result * 10 + (str[i] - '0');
 	}
 
@@ -83,29 +86,50 @@ double ptr_atof(char *str)
 	int sign = 1;
 	int pointPosition = -1;
 
-	if (*str == '-')
+	if (*tmp == '-')
 	{
 		sign = -1;
-		++str;
+		++tmp;
 	}
 
-	for (; *str != '\0'; ++str)
+	for (; *tmp != '\0'; ++tmp)
 	{
-		if (*str == '.')
-			pointPosition = str-tmp;
-		else
-			result = result * 10 + (*str - '0');
+		if (*tmp == '.')
+			pointPosition = tmp-str;
+		else if (*tmp >= '0' && *tmp <= '9')
+			result = result * 10 + (*tmp - '0');
 	}
 
 	if (pointPosition == -1)
-		pointPosition = str-tmp;
+		pointPosition = tmp-str;
 
-	for (int j = 0; j < str - tmp - pointPosition - 1; ++j)
+	for (int j = 0; j < tmp - str - pointPosition - 1; ++j)
 		result /= 10;
 
 	result *= sign;
 	return result;
 }
+
+int strlen(char*s)
+{
+	int i = 0;
+	while (s[i] != '\0')
+	{
+		++i;
+	}
+	return i;
+}
+
+int ptr_strlen(char*s)
+{
+	char* tmp = s;
+	while (*tmp != '\0')
+	{
+		++tmp;
+	}
+	return tmp - s;
+}
+
 // NOT WORKING YET
 // NOT WORKING YET
 // NOT WORKING YET
@@ -143,9 +167,17 @@ int ftoa(char *str)
 	return result;
 }
 
+void x(char* a, char* b)
+{
+	while (*a++ = *b++  && *a < 200);
+}
+
 int main()
 {
-	std::cout << ptr_itoa(1888) << std::endl;
+	char*a = "2";
+	char*b = "33";
+	std::cout << ptr_atof("1888.4") << std::endl;
+
     return 0;
 }
 
