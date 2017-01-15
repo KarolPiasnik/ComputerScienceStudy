@@ -1,4 +1,4 @@
-// BasicConversions.cpp : Defines the entry point for the console application.
+﻿// BasicConversions.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -120,6 +120,7 @@ int strlen(char*s)
 	return i;
 }
 
+
 int ptr_strlen(char*s)
 {
 	char* tmp = s;
@@ -130,33 +131,93 @@ int ptr_strlen(char*s)
 	return tmp - s;
 }
 
-// NOT WORKING YET
-// NOT WORKING YET
-// NOT WORKING YET
-// NOT WORKING YET
-char* ptr_itoa(int number)
+char* reverse(char*s)
 {
-	char* tmp = "";
-	char* result = tmp;
-
-	if (number < 0)
+	int size = strlen(s);
+	char* tmp = new char[size+1];
+	tmp[size] = '\0';
+	for (int i = 0; i < size; ++i)
 	{
-		*result = '-';
-		++result;
+		tmp[i] = s[size - 1 - i];
 	}
-	while (number != 0)
-	{
-		*result = ((number % 10) + '0');
-		number /= 10;
-		++result;
-	}
-
-	result = '\0';
-	result = tmp;
-	return result;
+	return tmp;
 }
 
-int ftoa(char *str)
+char* ptr_reverse(char*s)
+{
+	int size = strlen(s);
+	char* tmp = new char[size + 1];
+	*(tmp+size) = '\0';
+	for (int i = 0; i < size; ++i)
+	{
+		*(tmp+i) = *(s + size - 1 - i);
+	}
+	return tmp;
+}
+
+char* itoa(int s) { 
+	int slen = 1, tmp = s, i = 0;
+	bool lessThanZero = false;
+	while (tmp != 0)
+	{
+		slen++;
+		tmp /= 10;
+	}
+
+	if (s<0) 
+	{
+		lessThanZero = true;
+		slen++;
+		s *= -1;
+	}
+
+	char* res = new char[slen];
+
+	for (i = 0;  s!=0; ++i)
+	{
+		res[i] = s % 10 + '0';
+		s /= 10;
+	}
+
+	if (lessThanZero)
+		res[i++] = '-';
+	res[i] = '\0';
+	return res;
+	
+}
+
+char* ptr_itoa(int s) { 
+	int slen = 1, tmp = s, i = 0;
+	bool lessThanZero = false;
+	while (tmp != 0)
+	{
+		slen++;
+		tmp /= 10;
+	}
+
+	if (s<0)
+	{
+		lessThanZero = true;
+		slen++;
+		s *= -1;
+	}
+
+	char* res = new char[slen];
+
+	for (i = 0; s != 0; ++i)
+	{
+		*(res+i) = s % 10 + '0';
+		s /= 10;
+	}
+
+	if (lessThanZero)
+		*(res+i++) = '-';
+	*(res + i) = '\0';
+	return res;
+
+}
+
+int ftoa(char *str) // not working yet :/
 {
 	int result = 0;
 
@@ -174,10 +235,9 @@ void x(char* a, char* b)
 
 int main()
 {
-	char*a = "2";
-	char*b = "33";
-	std::cout << ptr_atof("1888.4") << std::endl;
-
+	
+	std::cout << ptr_reverse(ptr_itoa(-1888)) << std::endl;
+	
     return 0;
 }
 
