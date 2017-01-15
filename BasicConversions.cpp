@@ -182,7 +182,7 @@ char* itoa(int s) {
 	if (lessThanZero)
 		res[i++] = '-';
 	res[i] = '\0';
-	return res;
+	return reverse(res);
 	
 }
 
@@ -213,7 +213,7 @@ char* ptr_itoa(int s) {
 	if (lessThanZero)
 		*(res+i++) = '-';
 	*(res + i) = '\0';
-	return res;
+	return reverse(res);
 
 }
 
@@ -236,7 +236,7 @@ void x(char* a, char* b)
 int main()
 {
 	
-	std::cout << ptr_reverse(ptr_itoa(-1888)) << std::endl;
+	std::cout << ptr_atof("1808.188") << std::endl;
 	
     return 0;
 }
